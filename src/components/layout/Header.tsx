@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Bird, Sprout, Shield, Compass, Coins } from "lucide-react";
+import { Home, Bird, Sprout, Shield, Compass, Coins, Database } from "lucide-react";
 import { useUserStore } from "@/stores/useUserStore";
 
 export default function Header() {
@@ -51,6 +51,13 @@ export default function Header() {
               <Coins size={18} className="text-wheat-500" />
               <span className="font-medium text-wheat-700 text-sm">{coins}</span>
             </div>
+            <Link
+              to="/data"
+              className="w-9 h-9 rounded-full bg-gray-50 hover:bg-warm-50 flex items-center justify-center text-gray-500 hover:text-warm-500 transition-colors btn-bounce"
+              title="数据管理"
+            >
+              <Database size={18} />
+            </Link>
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 bg-field-100 rounded-full flex items-center justify-center text-xl">
                 {avatar}
