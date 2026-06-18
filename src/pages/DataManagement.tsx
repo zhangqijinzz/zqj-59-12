@@ -376,7 +376,7 @@ export default function DataManagement() {
             </div>
 
             <div className="p-6 space-y-3">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 {[
                   { label: "金币", value: pendingBackup.summary.coins + " 枚" },
                   {
@@ -384,20 +384,24 @@ export default function DataManagement() {
                     value: pendingBackup.summary.streakDays + " 天",
                   },
                   {
-                    label: "徽章",
+                    label: "安全徽章",
                     value: pendingBackup.summary.badgeCount + " 枚",
                   },
                   {
-                    label: "图鉴",
+                    label: "图鉴记录",
                     value: pendingBackup.summary.exploreCount + " 条",
                   },
                   {
-                    label: "作物",
+                    label: "种植作物",
                     value: pendingBackup.summary.farmPlotCount + " 块",
                   },
                   {
-                    label: "消息",
+                    label: "信使消息",
                     value: pendingBackup.summary.messageCount + " 条",
+                  },
+                  {
+                    label: "安全故事",
+                    value: pendingBackup.summary.completedStories + " 个",
                   },
                 ].map((item) => (
                   <div
@@ -495,7 +499,7 @@ export default function DataManagement() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
                   <div className="text-xs text-gray-500 mb-1">金币</div>
                   <div className="font-display text-lg text-gray-800">
@@ -509,7 +513,7 @@ export default function DataManagement() {
                   </div>
                 </div>
                 <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
-                  <div className="text-xs text-gray-500 mb-1">徽章</div>
+                  <div className="text-xs text-gray-500 mb-1">安全徽章</div>
                   <div className="font-display text-lg text-gray-800">
                     {pendingImport.summary.badgeCount} 枚
                   </div>
@@ -518,6 +522,24 @@ export default function DataManagement() {
                   <div className="text-xs text-gray-500 mb-1">图鉴记录</div>
                   <div className="font-display text-lg text-gray-800">
                     {pendingImport.summary.exploreCount} 条
+                  </div>
+                </div>
+                <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
+                  <div className="text-xs text-gray-500 mb-1">种植作物</div>
+                  <div className="font-display text-lg text-gray-800">
+                    {pendingImport.summary.farmPlotCount} 块
+                  </div>
+                </div>
+                <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
+                  <div className="text-xs text-gray-500 mb-1">信使消息</div>
+                  <div className="font-display text-lg text-gray-800">
+                    {pendingImport.summary.messageCount} 条
+                  </div>
+                </div>
+                <div className="bg-amber-50 rounded-xl p-3 border border-amber-100 col-span-3">
+                  <div className="text-xs text-gray-500 mb-1">已完成安全故事</div>
+                  <div className="font-display text-lg text-gray-800">
+                    {pendingImport.summary.completedStories} 个
                   </div>
                 </div>
               </div>

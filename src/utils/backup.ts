@@ -181,6 +181,10 @@ export function restoreBackupData(backup: BackupData): void {
   useSafetyStore.setState({
     completedStories: [...data.safetyCompletedStories],
   });
+  localStorage.setItem(
+    "guiyan_safety_completed_stories",
+    JSON.stringify(data.safetyCompletedStories)
+  );
 }
 
 export function downloadBackupFile(backup: BackupData): void {

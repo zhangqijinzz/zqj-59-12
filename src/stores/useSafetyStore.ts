@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { getStoryById, getStoryNode, StoryNode } from "@/data/mockStories";
+import { getStorage, setStorage } from "@/utils/storage";
 
 interface SafetyState {
   currentStoryId: string | null;
@@ -13,6 +14,15 @@ interface SafetyState {
   chooseOption: (nextNodeId: string) => void;
   restartStory: () => void;
   exitStory: () => void;
+  completeStory: (storyId: string) => void;
+}
+
+function loadCompletedStories(): string[] {
+  return getStorage<string[]>("safety_completed_stories", []);
+}
+
+function saveCompletedStories(stories: string[]) {
+  setStorage("safety_completed_stories", stories);
 }
 
 export const useSafetyStore = create<SafetyState>((set, get) => ({
@@ -21,7 +31,7 @@ export const useSafetyStore = create<SafetyState>((set, get) => ({
   isTyping: false,
   displayedText: "",
   history: [],
-  completedStories: [],
+  completedStories: loadCompletedStories(),
 
   startStory: (storyId) => {
     const story = getStoryById(storyId);
@@ -69,13 +79,34 @@ export const useSafetyStore = create<SafetyState>((set, get) => ({
   },
 
   exitStory: () => {
-    set({
-      currentStoryId: null,
-      currentNodeId: null,
-      isTyping: false,
-      displayedText: "",
-      history: [],
-    });
+    const storyId = get().currentStoryId;
+    if (storyId && !get().completedStories.includes(storyId)) {
+      const updated = [...get().completedStories, storyId];
+      set({
+        currentStoryId: null,
+        currentNodeId: null,
+        isTyping: false,
+        displayedText: "",
+        history: [],
+        completedStories: updated,
+      });
+      saveCompletedStories(updated);
+    } else {
+      set({
+        currentStoryId: null,
+        currentNodeId: null,
+        isTyping: false,
+        displayedText: "",
+        history: [],
+      });
+    }
+  },
+
+  completeStory: (storyId) => {
+    if (get().completedStories.includes(storyId)) return;
+    const updated = [...get().completedStories, storyId];
+    set({ completedStories: updated });
+    saveCompletedStories(updated);
   },
 }));
 
